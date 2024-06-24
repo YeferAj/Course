@@ -1,0 +1,34 @@
+<form action="" method="post">
+    {% csrf_token %} 
+    {% for field in form %}
+    <div class="mb-3">
+        <label for="" class="form-label">{{field.label}}</label>
+        <input type="{{field.field.widget.input_type}}" class="form-control" name="{{field.name}}" id=""
+            aria-describedby="helpId" placeholder="{{field.field.widget.attrs.placeholder}}"
+            values="{{field.value | default:''}}" />
+        <small id="helpId" class="form-text text-muted">{{field.errors}}</small>
+    </div>
+    {% endfor %}
+                
+    <div id="form-buttons"> <!-- Envolver los botones en un div con identificador único -->
+        <button type="button" class="btn btn-secondary" id="modal-close-button" data-bs-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary" id="modal-save-button">Guardar</button> 
+    </div>
+</form> 
+
+<script>
+    // JavaScript para establecer la fecha mínima en los campos de fecha
+    document.addEventListener('DOMContentLoaded', function() {
+        const today = new Date().toISOString().split('T')[0];
+        const startDateInput = document.querySelector('input[name="start_date"]');
+        const endDateInput = document.querySelector('input[name="end_date"]');
+
+        if (startDateInput) {
+            startDateInput.setAttribute('min', today);
+        }
+
+        if (endDateInput) {
+            endDateInput.setAttribute('min', today);
+        }
+    });
+</script>

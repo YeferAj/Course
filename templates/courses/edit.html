@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3 class="text-center">Editar Cursos</h3>
+
+<form action="" method="post" id="edit-form">
+    {% csrf_token %}
+    {% include 'courses/form.html' %}
+    <button type="button" class="btn btn-secondary" id="close-button" data-bs-dismiss="modal">Volver</button>
+    <button type="submit" class="btn btn-primary" id="save-button">Guardar</button>
+</form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Botón "Cerrar" del form.html dentro de edit.html
+        document.getElementById('close-button').addEventListener('click', function() {
+            window.location.href = "{% url 'index1' %}";
+        });
+
+        // Botón "Guardar" del form.html dentro de edit.html
+        document.getElementById('save-button').addEventListener('click', function(event) {
+            // Aquí puedes agregar cualquier validación adicional antes de enviar el formulario
+            document.getElementById('edit-form').submit();
+        });
+    });
+</script>
+<style>
+    /* Estilos para ocultar los botones del formulario en edit.html */
+    #form-buttons {
+        display: none;
+    }
+</style>
+
+
+{% endblock %}

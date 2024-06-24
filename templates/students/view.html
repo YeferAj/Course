@@ -1,0 +1,42 @@
+<!-- students/templates/students/view.html -->
+{% extends 'base.html' %}
+
+{% block title %}Detalles del estudiante{% endblock %}
+
+{% block content %}
+<h3 class="text-center">Detalles del estudiante</h3>
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <div class="mb-3">
+                <label for="" class="form-label">Nombre</label>
+                <input type="text" class="form-control" name="name" id="" value="{{ student.first_name }}" disabled />
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Apellidos</label>
+                <input type="text" class="form-control" name="apellidos" id="" value="{{ student.last_name }}" disabled />
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Documento</label>
+                <textarea class="form-control" name="documento" id="" rows="3" disabled>{{ student.document }}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Correo electrónico</label>
+                <input type="text" class="form-control" name="email" id="" value="{{ student.email }}" disabled />
+            </div>
+        </div>
+    </div>
+</div>
+<form action="" method="post" id="edit-form" class="col-3 mx-auto">
+    {% csrf_token %}
+    <button type="button" class="btn btn-secondary" id="close-button" data-bs-dismiss="modal">Volver</button>
+</form>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Botón "Cerrar" del form.html dentro de edit.html
+        document.getElementById('close-button').addEventListener('click', function() {
+            window.location.href = "{% url 'index' %}";
+        });
+    });
+</script>
+{% endblock %}

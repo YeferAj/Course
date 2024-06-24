@@ -1,0 +1,59 @@
+<!-- courses/templates/courses/view.html -->
+{% extends 'base.html' %}
+
+{% block title %}Detalle del Curso{% endblock %}
+
+{% block content %}
+<h3 class="text-center">Detalle del Curso</h3>
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <div class="mb-3">
+                <label for="" class="form-label">Nombre</label>
+                <input type="text" class="form-control" name="name" id="" value="{{ course.name }}" disabled />
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Descripción</label>
+                <textarea class="form-control" name="description" id="" rows="3"
+                    disabled>{{ course.description }}</textarea>
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Fecha de Inicio</label>
+                <input type="text" class="form-control" name="start_date" id="" value="{{ course.start_date }}"
+                    disabled />
+            </div>
+            <div class="mb-3">
+                <label for="" class="form-label">Fecha de Fin</label>
+                <input type="text" class="form-control" name="end_date" id="" value="{{ course.end_date }}" disabled />
+            </div>
+             <h4 class="text-center">Estudiantes Inscritos</h4>
+            <ul class="list-group">
+                {% for enrollment in enrolled_students %}
+                <li class="list-group-item">{{ enrollment.student.first_name }} {{ enrollment.student.last_name }}</li>
+                {% empty %}
+                <li class="list-group-item">No hay estudiantes inscritos.</li>
+                {% endfor %}
+            </ul>
+
+            <h4 class="text-center">Agregar Estudiante</h4>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="button" class="btn btn-secondary" id="close-button" data-bs-dismiss="modal">Volver</button>
+                <button type="submit" class="btn btn-primary">Agregar Estudiante</button>
+            </form>
+        </div>
+    </div>
+</div>
+           
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Botón "Cerrar" del form.html dentro de edit.html
+        document.getElementById('close-button').addEventListener('click', function() {
+            window.location.href = "{% url 'index1' %}";
+        });
+    });
+</script>
+{% endblock %}

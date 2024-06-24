@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+<h3 class="text-center"> Cursos</h3>
+<!-- Button trigger modal -->
+<div class="table-responsive">
+    <table class="table table-primary datatable-init-export">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Cursos</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in courses%}
+            <tr>
+                <td>{{course.id}}</td>
+                <td>{{course.name}}</td>
+                <td>
+                    <a href="{% url 'course_detail' course.id %}"><i class="fas fa-solid fa-eye mx-1"></i></a>
+                    <a href="{% url 'edit_course' course.id %}"><i class="fas fa-edit text mx-1"></i></a>
+                    <a href="{% url 'delete_course' course.id %}"><i class="fas fa-trash text-danger mx-1"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="d-flex justify-content-center">
+    <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modalId">
+        Registrar
+    </button>
+    <a href="{% url 'index' %}" class="btn btn-secondary btn-lg ms-3">Ver Estudiantes</a>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalId" tabindex="-1" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitleId">
+                    Registro de Eventos
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {% include 'courses/form.html'%}
+            </div>
+            
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{% if messages%}
+{% endif %}
+{% for message in messages %}
+<script>
+    Swal.fire({
+        title: '{{message.tags}}',
+        text: '{{message}}',
+        icon: '{{message.tags}}'
+    });
+</script>
+
+{% endfor %}
+{% endblock %}
